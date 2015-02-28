@@ -36,16 +36,6 @@ public class HelloWorldEndpoints {
             httpMethod = HttpMethod.GET)
 
     public HelloClass greetByPeriod(@Named("name") String name, @Named("period") String period) {
-        HelloClass greeting = new HelloClass();
-        if(period.compareToIgnoreCase("morning") == 0) {
-            greeting.message = "Good Morning " + name + "!";
-        }
-        else if(period.compareToIgnoreCase("evening") == 0) {
-            greeting.message = "Good Evening " + name + "!";
-        }
-        else {
-            greeting.message = "Greetings " + name + "!";
-        }
-        return greeting;
+        return new HelloClass("Good " + period + " " + name + "!");
     }
 }
