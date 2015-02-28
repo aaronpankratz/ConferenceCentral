@@ -37,15 +37,14 @@ public class HelloWorldEndpoints {
 
     public HelloClass greetByPeriod(@Named("name") String name, @Named("period") String period) {
         HelloClass greeting = new HelloClass();
-        switch(period) {
-            case "morning" : 
-                greeting.message = "Good Morning " + name + "!";
-                break;
-            case "evening" : 
-                greeting.message = "Good Evening " + name + "!";
-                break;
-            default :
-                greeting.message = "Greetings " + name + "!";
+        if(period.compareToIgnoreCase("morning") == 0) {
+            greeting.message = "Good Morning " + name + "!";
+        }
+        else if(period.compareToIgnoreCase("evening") == 0) {
+            greeting.message = "Good Evening " + name + "!";
+        }
+        else {
+            greeting.message = "Greetings " + name + "!";
         }
         return greeting;
     }
