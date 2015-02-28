@@ -38,10 +38,14 @@ public class HelloWorldEndpoints {
     public HelloClass greetByPeriod(@Named("name") String name, @Named("period") String period) {
         HelloClass greeting = new HelloClass();
         switch(period) {
-            case "morning" : greeting.message = "Good Morning " + name + "!";
+            case "morning" : 
+                greeting.message = "Good Morning " + name + "!";
                 break;
-            case "evening" : greeting.message = "Good Evening " + name + "!";
+            case "evening" : 
+                greeting.message = "Good Evening " + name + "!";
                 break;
+            default :
+                greeting.message = "Greetings " + name + "!";
         }
         return greeting;
     }
