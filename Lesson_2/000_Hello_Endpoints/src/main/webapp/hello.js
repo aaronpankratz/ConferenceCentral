@@ -88,9 +88,16 @@ function greetByName () {
 	request.execute(sayHelloCallback);
 }
 
+/*
+ * Execute a request to the greetByPeriod() endpoints function.
+ */
 function greetByPeriod() {
+    //Get the name and period from the name_field and period_field element
+    var name = document.getElementById("name_field").value;
+    var period = document.getElementById("period_field").value;
     
-    
+    var request = gapi.client.helloworldendpoints.greetByPeriod({'name': name, 'period': period});
+    request.execute(sayHelloCallback);
 }
 
 // Process the JSON response
