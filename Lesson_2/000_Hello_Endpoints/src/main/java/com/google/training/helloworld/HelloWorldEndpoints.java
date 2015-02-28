@@ -30,4 +30,19 @@ public class HelloWorldEndpoints {
     public HelloClass sayHelloByName (@Named("name") String name) {
         return new HelloClass(name);
     }
+
+    // Declare this method as a method available externally through Endpoints
+    @ApiMethod(name = "greetByPeriod", path = "greetByPeriod",
+            httpMethod = HttpMethod.GET)
+
+    public HelloClass greetByPeriod(@Named("name") String name, @Named("period") String period) {
+        HelloClass greeting = new HelloClass();
+        switch(period) {
+            case "morning" : greeting.message = "Good Morning " + name + "!";
+                break;
+            case "evening" : greeting.message = "Good Evening " + name + "!";
+                break;
+        }
+        return greeting;
+    }
 }
