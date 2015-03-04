@@ -46,9 +46,8 @@ public class ConferenceApi {
     // The request that invokes this method should provide data that
     // conforms to the fields defined in ProfileForm
 
-    // TODO 1 Pass the ProfileForm parameter
     // TODO 2 Pass the User parameter
-    public Profile saveProfile() throws UnauthorizedException {
+    public Profile saveProfile(ProfileForm profileForm) throws UnauthorizedException {
 
         String userId = null;
         String mainEmail = null;
@@ -57,14 +56,18 @@ public class ConferenceApi {
 
         // TODO 2
         // If the user is not logged in, throw an UnauthorizedException
-
-        // TODO 1
+        
         // Set the teeShirtSize to the value sent by the ProfileForm, if sent
         // otherwise leave it as the default value
-
-        // TODO 1
+        if(profileForm.getTeeShirtSize() != null) {
+            teeShirtSize = profileForm.getTeeShirtSize();
+        }
+        
         // Set the displayName to the value sent by the ProfileForm, if sent
         // otherwise set it to null
+        if(profileForm.getDisplayName() != null) {
+            displayName = profileForm.getDisplayName();
+        }
 
         // TODO 2
         // Get the userId and mainEmail
