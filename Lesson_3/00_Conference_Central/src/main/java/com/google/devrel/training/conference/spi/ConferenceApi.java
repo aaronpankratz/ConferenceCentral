@@ -89,10 +89,17 @@ public class ConferenceApi {
 		 if (displayName == null) {
 		   displayName = extractDefaultDisplayNameFromEmail(user.getEmail());
 		   }
-
+        Key key = Key.create(Profile.class, userId);
+        Profile profile = (Profile) ofy().load().key(key).now();
+        
 		// Create a new Profile entity from the
 		// userId, displayName, mainEmail and teeShirtSize
-		Profile profile = new Profile(userId, displayName, mainEmail, teeShirtSize);
+		if(profile == null) {
+            profile = new Profile(userId, displayName, mainEmail, teeShirtSize);
+        }
+        else {
+            profile.updateProfile(displayName, teeShirtSize);
+        }
 
 		// TODO 3 (In lesson 3)
 		// Save the entity in the datastore

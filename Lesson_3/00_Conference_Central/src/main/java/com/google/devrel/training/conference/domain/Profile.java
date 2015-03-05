@@ -48,5 +48,14 @@ public class Profile {
      * Just making the default constructor private.
      */
     private Profile() {}
+    
+    public void updateProfile(String displayName, TeeShirtSize teeShirtSize) {
+        if(displayName != null) {
+            this.displayName = displayName;
+        }
+        if(teeShirtSize != null) {
+            this.teeShirtSize = teeShirtSize;
+        }
+    }
 
 }
