@@ -225,4 +225,8 @@ public class ConferenceApi {
         Key<Profile> profileKey = Key.create(Profile.class, user.getUserId());
         return ofy().load().type(Conference.class).ancestor(profileKey).order("name").list();
     }
+    
+    public List<Conference> filterPlayground() {
+        return ofy().load().type(Conference.class).filter("city =", "London").filter("topics =", "Medical Innovations").order("name").list();
+    }
 }
