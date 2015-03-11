@@ -1,5 +1,6 @@
 package com.google.devrel.training.conference.spi;
 
+import static com.google.devrel.training.conference.service.OfyService.factory;
 import static com.google.devrel.training.conference.service.OfyService.ofy;
 
 import com.google.api.server.spi.config.Api;
@@ -142,34 +143,42 @@ public class ConferenceApi {
 
         // TODO (Lesson 4)
         // Get the userId of the logged in User
-        String userId = null;
+        String userId = user.getUserId();
 
         // TODO (Lesson 4)
         // Get the key for the User's Profile
-        Key<Profile> profileKey = null;
+        Key<Profile> profileKey = Key.create(Profile.class, userId);
 
         // TODO (Lesson 4)
         // Allocate a key for the conference -- let App Engine allocate the ID
         // Don't forget to include the parent Profile in the allocated ID
-        final Key<Conference> conferenceKey = null;
+        final Key<Conference> conferenceKey = factory().allocateId(profileKey, Conference.class);
 
         // TODO (Lesson 4)
         // Get the Conference Id from the Key
-        final long conferenceId = 0;
+        final long conferenceId = conferenceKey.getId();
 
         // TODO (Lesson 4)
         // Get the existing Profile entity for the current user if there is one
         // Otherwise create a new Profile entity with default values
-        Profile profile = null;
+        Profile profile = ofy().load().key(profileKey).now();
+        if (profile == null) {
+            profile = new Profile(
+                userId, 
+                extractDefaultDisplayNameFromEmail(user.getEmail()),
+                user.getEmail(), 
+                TeeShirtSize.NOT_SPECIFIED
+            );
+        }
 
         // TODO (Lesson 4)
         // Create a new Conference Entity, specifying the user's Profile entity
         // as the parent of the conference
-        Conference conference = null;
+        Conference conference = new Conference(conferenceId, userId, conferenceForm);
 
         // TODO (Lesson 4)
         // Save Conference and Profile Entities
-
+        ofy().save().entities(profile, conference).now();
 
         return conference;
     }
