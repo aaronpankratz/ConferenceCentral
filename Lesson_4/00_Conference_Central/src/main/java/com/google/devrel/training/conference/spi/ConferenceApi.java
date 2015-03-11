@@ -210,6 +210,7 @@ public class ConferenceApi {
      * Queries against the datastore to find all Conferences created by given user
      * @param user A User object injected by the cloud endpoints.
      * @return A List of Conferences that the user created
+     * @throws UnauthorizedException when the user is not signed in.
      */
     @ApiMethod(
             name = "getConferencesCreated",
@@ -222,7 +223,7 @@ public class ConferenceApi {
             throw new UnauthorizedException("Authorization required");
         }
         Key<Profile> profileKey = Key.create(Profile.class, user.getUserId());
-        Query<Conference> query = ofy().load().type(Conference.class).ancestor(profileKey);
+        Query<Conference> query = ofy().load().type(Conference.class).ancestor(profileKey).order("name");
         return query.list();
     }
 }
