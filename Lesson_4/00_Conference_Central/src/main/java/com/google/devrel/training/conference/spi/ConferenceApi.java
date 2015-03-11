@@ -8,7 +8,9 @@ import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 import com.google.api.server.spi.response.UnauthorizedException;
 import com.google.appengine.api.users.User;
 import com.google.devrel.training.conference.Constants;
+import com.google.devrel.training.conference.domain.Conference;
 import com.google.devrel.training.conference.domain.Profile;
+import com.google.devrel.training.conference.form.ConferenceForm;
 import com.google.devrel.training.conference.form.ProfileForm;
 import com.google.devrel.training.conference.form.ProfileForm.TeeShirtSize;
 import com.googlecode.objectify.Key;
@@ -121,5 +123,54 @@ public class ConferenceApi {
 
         Profile profile = (Profile) ofy().load().key(key).now();
         return profile;
+    }
+
+    /**
+     * Creates a new Conference object and stores it to the datastore.
+     *
+     * @param user A user who invokes this method, null when the user is not signed in.
+     * @param conferenceForm A ConferenceForm object representing user's inputs.
+     * @return A newly created Conference Object.
+     * @throws UnauthorizedException when the user is not signed in.
+     */
+    @ApiMethod(name = "createConference", path = "conference", httpMethod = HttpMethod.POST)
+    public Conference createConference(final User user, final ConferenceForm conferenceForm)
+            throws UnauthorizedException {
+        if (user == null) {
+            throw new UnauthorizedException("Authorization required");
+        }
+
+        // TODO (Lesson 4)
+        // Get the userId of the logged in User
+        String userId = null;
+
+        // TODO (Lesson 4)
+        // Get the key for the User's Profile
+        Key<Profile> profileKey = null;
+
+        // TODO (Lesson 4)
+        // Allocate a key for the conference -- let App Engine allocate the ID
+        // Don't forget to include the parent Profile in the allocated ID
+        final Key<Conference> conferenceKey = null;
+
+        // TODO (Lesson 4)
+        // Get the Conference Id from the Key
+        final long conferenceId = 0;
+
+        // TODO (Lesson 4)
+        // Get the existing Profile entity for the current user if there is one
+        // Otherwise create a new Profile entity with default values
+        Profile profile = null;
+
+        // TODO (Lesson 4)
+        // Create a new Conference Entity, specifying the user's Profile entity
+        // as the parent of the conference
+        Conference conference = null;
+
+        // TODO (Lesson 4)
+        // Save Conference and Profile Entities
+
+
+        return conference;
     }
 }
