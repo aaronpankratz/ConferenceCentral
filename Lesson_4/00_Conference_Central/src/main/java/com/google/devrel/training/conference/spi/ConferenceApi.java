@@ -223,7 +223,6 @@ public class ConferenceApi {
             throw new UnauthorizedException("Authorization required");
         }
         Key<Profile> profileKey = Key.create(Profile.class, user.getUserId());
-        Query<Conference> query = ofy().load().type(Conference.class).ancestor(profileKey).order("name");
-        return query.list();
+        return ofy().load().type(Conference.class).ancestor(profileKey).order("name").list();
     }
 }
